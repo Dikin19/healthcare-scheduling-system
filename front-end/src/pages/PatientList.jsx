@@ -4,6 +4,7 @@ import tableStyles from "../components/table/TableComponent";
 import { usePatientStore } from "../store/patientStore";
 import { useMemo } from "react";
 import Search from "../components/search/search";
+import Button from "../components/button/button";
 
 
 
@@ -56,6 +57,7 @@ export default function PatientList() {
                         <th className={tableStyles.th}>NAME</th>
                         <th className={tableStyles.th}>EMAIL</th>
                         <th className={tableStyles.th}>PHONE</th>
+                        <th className={tableStyles.th}>ACTION</th>
                     </tr>
                 </thead>
 
@@ -66,6 +68,8 @@ export default function PatientList() {
                             <td className={tableStyles.td}>{patient.name}</td>
                             <td className={tableStyles.td}>{patient.email}</td>
                             <td className={tableStyles.td}>{patient.phone}</td>
+                            <td><Button richChildren size="small" variant="success"> test </Button></td>
+
                         </tr>
                     ))}
 
