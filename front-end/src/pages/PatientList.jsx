@@ -1,13 +1,38 @@
 import { useQuery } from "@apollo/client/react";
 import { GET_PATIENTS } from "../graphql/queries";
-import tableStyles from "../components/tableComponent/TableComponent";
+import tableStyles from "../components/table/TableComponent";
+import { usePatientStore } from "../store/patientStore";
+import { useMemo } from "react";
+import Search from "../components/search/search";
 
 
 
 export default function PatientList() {
-    const { data, loading, error } = useQuery(GET_PATIENTS);
+
+    const search = usePatientStore((s) => s.search);
+
+    const { data, loading, error } = useQuery(GET_PATIENTS, { variables: { search: "" } });
     console.log("apa data masuk", data);
-    const patients = data?.patients;
+    const dataPatients = data?.patients
+
+    const patients = useMemo(() => {
+
+        if (!dataPatients) return [];
+        if (!search) return dataPatients;
+
+        const searchLower = search.toLowerCase();
+
+        return dataPatients.filter(
+            p =>
+                p.name.toLowerCase().includes(searchLower) ||
+                p.email.toLowerCase().includes(searchLower) ||
+                p.phone.includes(search)
+
+        );
+
+    }, [dataPatients, search])
+
+
 
     if (loading) return <div>Loading...</div>;
 
@@ -23,6 +48,7 @@ export default function PatientList() {
                 Healthcare Scheduling System
             </div>
 
+            <Search />
             <table className={tableStyles.table}>
                 <thead className={tableStyles.thead}>
                     <tr>

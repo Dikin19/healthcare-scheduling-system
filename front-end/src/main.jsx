@@ -1,9 +1,16 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { MockedProvider } from "@apollo/client/testing/react";
 import "./index.css";
 import PatientList from "./pages/PatientList.jsx";
-import { mocks } from "./graphql/mocks.js";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { mockLink } from "./graphql/mockLink.js";
+import { ApolloProvider } from "@apollo/client/react";
+
+
+const client = new ApolloClient({
+  link: mockLink,
+  cache: new InMemoryCache()
+});
 
 const router = createBrowserRouter([
   {
@@ -15,7 +22,7 @@ const router = createBrowserRouter([
 
 const root = document.getElementById("root")
 ReactDOM.createRoot(root).render(
-  <MockedProvider mocks={mocks} addTypename={false}>
+  <ApolloProvider client={client}>
     <RouterProvider router={router} />
-  </MockedProvider>
+  </ApolloProvider>
 );
