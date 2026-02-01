@@ -2,6 +2,9 @@ import { ApolloLink, Observable } from "@apollo/client";
 import { allPatients, patientHistory } from "./mocks";
 
 
+
+let patientIdCounter = 11
+
 export const mockLink = new ApolloLink((operation) => {
 
     return new Observable((observer) => {
@@ -35,6 +38,43 @@ export const mockLink = new ApolloLink((operation) => {
                         } : null
                     }
                 };
+            }
+
+            else if (operationName === "CreatePatient") {
+                const newPatient = {
+                    id: String(patientIdCounter++),
+                    ...variables.input
+                };
+                allPatients.push(newPatient);
+                result = {
+                    data: {
+                        createPatient: newPatient
+                    }
+                };
+            }
+
+            else if (operationName === "UpdatePatient"){
+
+                const index = allPatients.findIndex(p => p.id ===  variables.id);
+                
+                if(index !== -1) {
+                    allPatients[index] = {
+                        ...allPatients[index],
+                        ...variables.input
+                    };
+                    result = {
+                        data: {
+                            updatePatient: allPatients[index]
+                        }
+                    };
+                }
+                else{
+                    result = {
+                        data: {
+                            updatePatient: null
+                        }
+                    };
+                }
             }
 
             else {
