@@ -8,6 +8,7 @@ import { ApolloProvider } from "@apollo/client/react";
 import PatientDetail from "./pages/patientDetail.jsx";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import Calendar from "./pages/calendar.jsx"
 
 
 const client = new ApolloClient({
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/patient/:id",
     element: <PatientDetail />
+  },
+  {
+    path: "/calendar",
+    element: <Calendar />
   }
 ])
 

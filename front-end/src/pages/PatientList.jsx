@@ -30,7 +30,7 @@ export default function PatientList() {
     
     const { data, loading, error } = useQuery(GET_PATIENTS, { variables: { search: "" } });
     const dataPatients = data?.patients
-    console.log("apakah data masuk",dataPatients)
+    // console.log("apakah data masuk",dataPatients)
 
     const patients = useMemo(() => {
 
@@ -70,7 +70,7 @@ export default function PatientList() {
                 Healthcare Scheduling System
             </div>
 
-            <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-4 sm:mb-6">
+            <div className="flex flex-wrap gap-3 sm:gap-3 justify-center mb-4 sm:mb-6">
                 <div>
                     <Button 
                     size="small" 
@@ -80,6 +80,13 @@ export default function PatientList() {
                         setEditId(null);
                         setShowForm(true);
                     }}/>
+                </div>
+                <div>
+                    <Button 
+                    size="small" 
+                    label="📅 Calendar" 
+                    variant="primary" 
+                    onClick={()=> navigate("/calendar")}/>
                 </div>
 
             </div>

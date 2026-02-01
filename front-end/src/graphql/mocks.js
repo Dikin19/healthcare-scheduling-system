@@ -12,22 +12,29 @@ export let allPatients = [
 ];
 
 export let patientHistory = {
-    "1": [
-        { id: "h1", date: "2026-01-15", diagnosis: "Flu", doctor: "Dr. Siti Nurhaliza", notes: "Istirahat cukup dan minum obat teratur" },
-        { id: "h2", date: "2025-12-10", diagnosis: "Checkup Rutin", doctor: "Dr. Ahmad Dahlan", notes: "Kondisi sehat, tidak ada keluhan" },
-        { id: "h3", date: "2025-11-05", diagnosis: "Demam", doctor: "Dr. Siti Nurhaliza", notes: "Demam tinggi, diberi antibiotik" }
-    ],
     "2": [
-        { id: "h4", date: "2026-01-20", diagnosis: "Hipertensi", doctor: "Dr. Budi Santoso", notes: "Kontrol tekanan darah rutin" },
-        { id: "h5", date: "2025-10-15", diagnosis: "Diabetes", doctor: "Dr. Ahmad Dahlan", notes: "Jaga pola makan dan olahraga teratur" }
+        { id: "h3", date: "2025-12-15", diagnosis: "Hipertensi", doctor: "Dr. Budi Santoso", notes: "Kontrol tekanan darah rutin sudah diselesaikan. Tekanan darah 130/85, diberi obat antihipertensi. Kontrol rutin setiap bulan." },
     ],
     "3": [
-        { id: "h6", date: "2026-01-10", diagnosis: "Alergi", doctor: "Dr. Siti Nurhaliza", notes: "Hindari makanan pemicu alergi" }
+        { id: "h5", date: "2026-01-10", diagnosis: "Alergi", doctor: "Dr. Siti Nurhaliza", notes: "Penanganan alergi makanan sudah diselesaikan. Diberi antihistamin dan kortikosteroid. Hindari makanan pemicu alergi (seafood)." },
     ],
-    "4": [
-        { id: "h7", date: "2026-01-12", diagnosis: "Sakit Gigi", doctor: "Dr. Rina Marlina", notes: "Cabut gigi geraham" }
+    "6": [
+        { id: "h9", date: "2025-11-10", diagnosis: "Sakit Perut", doctor: "Dr. Siti Nurhaliza", notes: "Penanganan maag akut sudah diselesaikan. Diberi obat antasida dan PPI. Hindari makanan pedas dan asam, makan teratur." }
     ],
-    "5": [
-        { id: "h8", date: "2026-01-18", diagnosis: "Checkup Rutin", doctor: "Dr. Ahmad Dahlan", notes: "Sehat" }
-    ]
+    "8": [
+        { id: "h10", date: "2025-11-15", diagnosis: "Sakit Kepala Migrain", doctor: "Dr. Siti Nurhaliza", notes: "Penanganan migrain sudah diselesaikan. Diberi obat pereda nyeri dan anti migrain. Kurangi stress, tidur cukup, dan hindari pemicu migrain." }
+    ],
 };
+
+
+export let appointments = [
+    { id: "a1", patientId: "1", patientName: "Budi Santoso", date: "2026-01-15", time: "09:00", doctor: "Dr. Siti Nurhaliza", status: "completed", type: "Checkup" },
+    { id: "a2", patientId: "2", patientName: "Dul Aziz", date: "2026-01-20", time: "10:00", doctor: "Dr. Budi Santoso", status: "completed", type: "Konsultasi" },
+
+    { id: "a7", patientId: "9", patientName: "Ical Maulana", date: "2026-01-18", time: "08:30", doctor: "Dr. Ahmad Dahlan", status: "cancelled", type: "Checkup" },
+    { id: "a8", patientId: "10", patientName: "Agus Susanto", date: "2026-01-22", time: "15:00", doctor: "Dr. Siti Nurhaliza", status: "cancelled", type: "Konsultasi" },
+
+    { id: "a11", patientId: "4", patientName: "Baron Wijaya", date: "2026-02-03", time: "09:00", doctor: "Dr. Rina Marlina", status: "scheduled", type: "Perawatan Gigi" },
+    { id: "a12", patientId: "5", patientName: "Reno Prasetyo", date: "2026-02-03", time: "10:30", doctor: "Dr. Ahmad Dahlan", status: "scheduled", type: "Checkup" },
+    { id: "a13", patientId: "6", patientName: "Krisna Putra", date: "2026-02-05", time: "13:00", doctor: "Dr. Siti Nurhaliza", status: "scheduled", type: "Konsultasi" },
+]

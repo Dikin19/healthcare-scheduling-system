@@ -18,7 +18,7 @@ export default function PatientDetail() {
     const [showForm, setShowForm] = useState(false)
 
     const { id } = useParams();
-    console.log(id, ">>>>>")
+    // console.log(id, ">>>>>")
 
     const navigate = useNavigate()
 
@@ -44,7 +44,7 @@ export default function PatientDetail() {
 
     return (
         <div className="p-8 max-w-6xl mx-auto border">
-            
+
             <div className="flex justify-center items-center text-center font-bold text-xl rounded-lg">
                 {loading && <div>Loading...</div>}
         
@@ -56,7 +56,7 @@ export default function PatientDetail() {
             <div>
                 <Button 
                 variant="secondary" 
-                label="← Back to List" 
+                label="← Back" 
                 onClick={() => navigate("/")}
                 />      
             </div>

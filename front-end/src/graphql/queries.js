@@ -61,3 +61,18 @@ export const UPDATE_PATIENT = gql`
     }
 
 `
+
+export const GET_APPOINTMENTS = gql`
+    query GetAppointments {
+        appointments {
+        id
+        patientId
+        patientName
+        date
+        time
+        doctor
+        status
+        type
+        }
+    }
+`;

@@ -1,5 +1,6 @@
 import { ApolloLink, Observable } from "@apollo/client";
-import { allPatients, patientHistory } from "./mocks";
+import { allPatients, patientHistory, appointments } from "./mocks";
+
 
 
 
@@ -36,6 +37,14 @@ export const mockLink = new ApolloLink((operation) => {
                             ...patient,
                             history: patientHistory[variables.id] || []
                         } : null
+                    }
+                };
+            } 
+            
+            else if (operationName === "GetAppointments") {
+                result = {
+                    data: {
+                        appointments: appointments
                     }
                 };
             }
