@@ -6,6 +6,8 @@ import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { mockLink } from "./graphql/mockLink.js";
 import { ApolloProvider } from "@apollo/client/react";
 import PatientDetail from "./pages/patientDetail.jsx";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 
 const client = new ApolloClient({
@@ -29,5 +31,18 @@ const root = document.getElementById("root")
 ReactDOM.createRoot(root).render(
   <ApolloProvider client={client}>
     <RouterProvider router={router} />
+    <ToastContainer
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+
+    />
   </ApolloProvider>
 );

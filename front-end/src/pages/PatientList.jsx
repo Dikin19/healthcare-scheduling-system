@@ -8,6 +8,8 @@ import Button from "../components/button/button";
 import { useNavigate } from "react-router-dom"
 import FormInput from "../components/form/formInput";
 import FormSelect from "../components/form/formSelect";
+import FormTextArea from "../components/form/formtextarea";
+import UsePatientForm from "../hooks/usePatientForm";
 
 
 
@@ -16,9 +18,13 @@ export default function PatientList() {
 
     const search = usePatientStore((s) => s.search);
     const [showForm, setShowForm] = useState(false)
-
     const navigate = useNavigate()
 
+    const handleSuccess = () => {
+        setShowForm(false);
+    };
+
+    const {formData, errors, handleSubmit, handleChange, resetForm} = UsePatientForm(handleSuccess)
     const { data, loading, error } = useQuery(GET_PATIENTS, { variables: { search: "" } });
     // console.log("apa data masuk", data);
     const dataPatients = data?.patients
@@ -40,6 +46,10 @@ export default function PatientList() {
 
     }, [dataPatients, search])
 
+    const genderOption = [
+        {value: "Laki-Laki", label: "Laki-laki"},
+        {value: "Perempuan", label: "Perempuan"}
+    ]
 
     return (
 
@@ -54,42 +64,119 @@ export default function PatientList() {
         
             </div>
 
-            <div className="uppercase text-lx font-bold text-center mb-4 mt-4">
+            <div className="uppercase text-base sm:text-lg md:text-xl font-bold text-center mb-3 sm:mb-4 mt-3 sm:mt-4">
                 Healthcare Scheduling System
             </div>
 
-            <div className="flex flex-wrap gap-3 justify-center mb-6">
+            <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-4 sm:mb-6">
                 <div>
-                    <Button size="small" label="+ Add New Patient" variant="success" onClick={()=> setShowForm(true)}/>
+                    <Button 
+                    size="small" 
+                    label="+ Add New Patient" 
+                    variant="success" 
+                    onClick={()=> 
+                    setShowForm(true)}/>
                 </div>
 
             </div>
 
             {showForm && (
-                <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/55">
-                    <div className="bg-white p-6 rounded-xl w-[30%] max-w-[90%] animate-scaleFade shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
+                <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/55 p-4">
+                    <div className="bg-white p-4 sm:p-6 rounded-xl w-full sm:w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%] max-w-2xl max-h-[90vh] overflow-y-auto animate-scaleFade shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
+                        <h2 className="text-lg sm:text-xl font-bold mb-4 text-center">Tambah Pasien Baru</h2>
                         
-                        <div className="mb-2">
-                            <FormInput
-                            label="Nama Lengkap"
-                            name="name"
-                            placeholder="Masukan Nama Lengkap"
-                            />
-                        </div>
+                        <form onSubmit={handleSubmit}>
+                            <div className="mb-2">
+                                <FormInput
+                                label="Nama Lengkap"
+                                name="name"
+                                value={formData.name}
+                                placeholder="Masukan Nama Lengkap"
+                                onChange={handleChange}
+                                error={errors.name}
+                                />
+                            </div>
 
-                        <div className="mb-2">
-                            <FormSelect
-                            label="Jenis Kelamin"
+                            <div className="mb-2">
+                                <FormInput
+                                label="Email"
+                                name="email"
+                                type="email"
+                                value={formData.email}
+                                placeholder="Masukan Email"
+                                onChange={handleChange}
+                                error={errors.email}
+                                />
+                            </div>
 
-                            />
-                        </div>
-                        
-                            <div className="flex justify-end"> <Button variant="primary" label="Close" size="small" onClick={() => setShowForm(false)}/> </div>
+                            <div className="mb-2">
+                                <FormInput
+                                label="Nomor Telepon"
+                                name="phone"
+                                value={formData.phone}
+                                placeholder="Masukan Nomor Telepon"
+                                onChange={handleChange}
+                                error={errors.phone}
+                                />
+                            </div>
+
+                            <div className="mb-2">
+                                <FormInput
+                                label="Tanggal Lahir"
+                                name="dateOfBirth"
+                                type="date"
+                                value={formData.dateOfBirth}
+                                onChange={handleChange}
+                                error={errors.dateOfBirth}
+                                />
+                            </div>
+
+                            
+                            <div className="mb-2">
+                                <FormSelect
+                                label="Jenis Kelamin"
+                                name="gender"
+                                value={formData.gender}
+                                onChange={handleChange}
+                                options={genderOption}
+                                error={errors.gender}
+                                />
+                            </div>
+
+                            <div className="mb-3">
+                                <FormTextArea
+                                label="Alamat"
+                                name="address"
+                                value={formData.address}
+                                placeholder="Masukan Alamat Lengkap"
+                                onChange={handleChange}
+                                error={errors.address}
+                                rows={3}
+                                />
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 sm:justify-between"> 
+                                <Button 
+                                variant="primary" 
+                                label="Save" 
+                                size="medium" 
+                                type="submit"/> 
+
+                                <Button 
+                                variant="danger" 
+                                label="Close" 
+                                size="medium" 
+                                onClick={() => {
+                                resetForm() 
+                                setShowForm(false)}}/>
+                            </div>
+                        </form>
                     </div>
                 </div>
             )}
 
             <Search />
+            <div className="overflow-x-auto">
             <table className={tableStyles.table}>
                 <thead className={tableStyles.thead}>
                     <tr>
@@ -109,7 +196,7 @@ export default function PatientList() {
                             <td className={tableStyles.td}>{patient.email}</td>
                             <td className={tableStyles.td}>{patient.phone}</td>
                             <td className={tableStyles.td}>
-                                <div className="flex justify-center gap-2">
+                                <div className="flex justify-center gap-1 sm:gap-2 flex-wrap">
                                 <Button
                                 richChildren
                                 size="small"
@@ -121,7 +208,7 @@ export default function PatientList() {
                                 size="small"
                                 variant="primary"
                                 onClick={() => navigate(`/patient/${patient.id}`)}>
-                                update Patient </Button></div>
+                                Update </Button></div>
                             </td>
                         </tr>
                     ))}
@@ -129,6 +216,7 @@ export default function PatientList() {
                 </tbody>
 
             </table>
+            </div>
 
         </div>
 
