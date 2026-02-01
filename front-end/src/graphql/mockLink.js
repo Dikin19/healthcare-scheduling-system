@@ -1,12 +1,12 @@
 import { ApolloLink, Observable } from "@apollo/client";
-import { allPatients } from "./mocks";
+import { allPatients, patientHistory } from "./mocks";
 
 
 export const mockLink = new ApolloLink((operation) => {
 
     return new Observable((observer) => {
 
-        const { query } = operation;
+        const { query, variables } = operation;
 
         const definition = query.definitions[0];
 
@@ -23,7 +23,26 @@ export const mockLink = new ApolloLink((operation) => {
                         patients: allPatients
                     }
                 };
-            };
+            }
+
+            else if (operationName === "GetPatientDetail") {
+                const patient = allPatients.find(p => p.id === variables.id);
+                result = {
+                    data: {
+                        patient: patient ? {
+                            ...patient,
+                            history: patientHistory[variables.id] || []
+                        } : null
+                    }
+                };
+            }
+
+            else {
+                result = {
+                    errors: [{ message: `Unknown operation: ${operationName}` }]
+                };
+            }
+
 
             setTimeout(() => {
                 observer.next(result);

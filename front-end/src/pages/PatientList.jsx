@@ -5,6 +5,7 @@ import { usePatientStore } from "../store/patientStore";
 import { useMemo } from "react";
 import Search from "../components/search/search";
 import Button from "../components/button/button";
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -12,8 +13,10 @@ export default function PatientList() {
 
     const search = usePatientStore((s) => s.search);
 
+    const navigate = useNavigate()
+
     const { data, loading, error } = useQuery(GET_PATIENTS, { variables: { search: "" } });
-    console.log("apa data masuk", data);
+    // console.log("apa data masuk", data);
     const dataPatients = data?.patients
 
     const patients = useMemo(() => {
@@ -68,8 +71,13 @@ export default function PatientList() {
                             <td className={tableStyles.td}>{patient.name}</td>
                             <td className={tableStyles.td}>{patient.email}</td>
                             <td className={tableStyles.td}>{patient.phone}</td>
-                            <td><Button richChildren size="small" variant="success"> test </Button></td>
-
+                            <td className={tableStyles.td}>
+                                <Button
+                                richChildren
+                                size="small"
+                                variant="success"
+                                onClick={() => navigate(`/patient/${patient.id}`)}>
+                                Detail </Button></td>
                         </tr>
                     ))}
 

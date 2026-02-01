@@ -10,3 +10,25 @@ export const GET_PATIENTS = gql`
         }
     }
 `;
+
+
+export const GET_PATIENT_DETAIL = gql`
+    query GetPatientDetail($id: ID!) {
+        patient(id: $id) {
+            id
+            name
+            email
+            phone
+            address
+            dateOfBirt
+            gender
+            history {
+                id
+                date
+                diagnosis
+                doctor
+                notes
+            }
+        }
+    }
+`

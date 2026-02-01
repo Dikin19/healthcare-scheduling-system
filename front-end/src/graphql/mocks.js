@@ -10,3 +10,24 @@ export let allPatients = [
     { id: "9", name: "Ical Maulana", email: "Ical@mail.com", phone: "081110987654", address: "Jl. Cikini No. 90, Jakarta", dateOfBirth: "1989-06-30", gender: "Laki-laki" },
     { id: "10", name: "Agus Susanto", email: "Agus@mail.com", phone: "081111234567", address: "Jl. Salemba No. 23, Jakarta", dateOfBirth: "1994-02-17", gender: "Laki-laki" }
 ];
+
+export let patientHistory = {
+    "1": [
+        { id: "h1", date: "2026-01-15", diagnosis: "Flu", doctor: "Dr. Siti Nurhaliza", notes: "Istirahat cukup dan minum obat teratur" },
+        { id: "h2", date: "2025-12-10", diagnosis: "Checkup Rutin", doctor: "Dr. Ahmad Dahlan", notes: "Kondisi sehat, tidak ada keluhan" },
+        { id: "h3", date: "2025-11-05", diagnosis: "Demam", doctor: "Dr. Siti Nurhaliza", notes: "Demam tinggi, diberi antibiotik" }
+    ],
+    "2": [
+        { id: "h4", date: "2026-01-20", diagnosis: "Hipertensi", doctor: "Dr. Budi Santoso", notes: "Kontrol tekanan darah rutin" },
+        { id: "h5", date: "2025-10-15", diagnosis: "Diabetes", doctor: "Dr. Ahmad Dahlan", notes: "Jaga pola makan dan olahraga teratur" }
+    ],
+    "3": [
+        { id: "h6", date: "2026-01-10", diagnosis: "Alergi", doctor: "Dr. Siti Nurhaliza", notes: "Hindari makanan pemicu alergi" }
+    ],
+    "4": [
+        { id: "h7", date: "2026-01-12", diagnosis: "Sakit Gigi", doctor: "Dr. Rina Marlina", notes: "Cabut gigi geraham" }
+    ],
+    "5": [
+        { id: "h8", date: "2026-01-18", diagnosis: "Checkup Rutin", doctor: "Dr. Ahmad Dahlan", notes: "Sehat" }
+    ]
+};

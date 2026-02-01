@@ -5,6 +5,7 @@ import PatientList from "./pages/PatientList.jsx";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { mockLink } from "./graphql/mockLink.js";
 import { ApolloProvider } from "@apollo/client/react";
+import PatientDetail from "./pages/patientDetail.jsx";
 
 
 const client = new ApolloClient({
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <PatientList />
+  },
+  {
+    path: "/patient/:id",
+    element: <PatientDetail />
   }
 ])
 
