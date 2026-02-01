@@ -20,7 +20,7 @@ export const GET_PATIENT_DETAIL = gql`
             email
             phone
             address
-            dateOfBirt
+            dateOfBirth
             gender
             history {
                 id

@@ -2,10 +2,12 @@
 import {useState, useEffect} from "react"
 import { useQuery, useMutation } from "@apollo/client/react";
 import { toast } from "react-toastify";
-import { GET_PATIENTS, CREATE_PATIENT} from "../graphql/queries";
+import { GET_PATIENTS, CREATE_PATIENT, GET_PATIENT_DETAIL, UPDATE_PATIENT} from "../graphql/queries";
 
 
-export default function UsePatientForm(onSuccess) {
+export default function UsePatientForm(onSuccess, id) {
+
+    const isEdit = !!id;
 
     const initialFormData = {
         name: "",
@@ -17,14 +19,42 @@ export default function UsePatientForm(onSuccess) {
     };
 
     const [formData, setFormData] = useState(initialFormData);
-
-
     const [errors, setErrors] = useState({})
+
+    const {data} = useQuery(GET_PATIENT_DETAIL,{
+        variables: {id},
+        skip: !isEdit
+    })
 
     const [createPatient, {loading: creating}] = useMutation(CREATE_PATIENT, {
         refetchQueries: [{query: GET_PATIENTS, variables: {search: ""}},
         ]
     });
+
+    const [updatePatient, {loading: updating}] = useMutation(UPDATE_PATIENT, {
+        refetchQueries: [
+            {query: GET_PATIENTS, variables: {search: ""}},
+            {query: GET_PATIENT_DETAIL, variables: {id}},
+
+        ]
+    });
+
+    useEffect(() => {
+
+        if(isEdit && data?.patient){
+            setFormData({
+                name: data.patient.name,
+                email: data.patient.email,
+                phone: data.patient.phone,
+                address: data.patient.address,
+                dateOfBirth: data.patient.dateOfBirth,
+                gender: data.patient.gender
+            });
+        }
+
+    }, [isEdit, data]);
+
+    
 
     const validate = () => {
 
@@ -89,21 +119,34 @@ export default function UsePatientForm(onSuccess) {
 
         try {
 
-            await createPatient({
+            if(isEdit){
+                await updatePatient({
+                    variables: {
+                        id,
+                        input: formData
+                    }
+                });
+                toast.success("Pasien berhasil diupdate!", {
+                    position: "top-right"
+                });
+            } else {
+            
+                await createPatient({
                 variables : {
                     input: formData
                 }
             });
-
             toast.success("pasien berhasil ditambahkan", {
                 position: "top-right"
             });
+         }
 
             resetForm();
             
             if (onSuccess) {
                 onSuccess();
             }
+
             
         } catch (error) {
             toast.error("Terjadi kesalahan: " + error.message, {
@@ -119,7 +162,8 @@ export default function UsePatientForm(onSuccess) {
         errors,
         handleSubmit,
         handleChange,
-        resetForm
+        resetForm,
+        loading: creating || updating
     }
 
 

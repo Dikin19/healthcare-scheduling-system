@@ -18,16 +18,19 @@ export default function PatientList() {
 
     const search = usePatientStore((s) => s.search);
     const [showForm, setShowForm] = useState(false)
+    const [editId, setEditId] = useState(null)
     const navigate = useNavigate()
 
     const handleSuccess = () => {
         setShowForm(false);
+        setEditId(null)
     };
 
-    const {formData, errors, handleSubmit, handleChange, resetForm} = UsePatientForm(handleSuccess)
+    const {formData, errors, handleSubmit, handleChange, resetForm, loading: formLoading} = UsePatientForm(handleSuccess, editId)
+    
     const { data, loading, error } = useQuery(GET_PATIENTS, { variables: { search: "" } });
-    // console.log("apa data masuk", data);
     const dataPatients = data?.patients
+    console.log("apakah data masuk",dataPatients)
 
     const patients = useMemo(() => {
 
@@ -61,7 +64,6 @@ export default function PatientList() {
                 {!loading && error && (<div>Error: {error.message}</div>)}
 
                 {!loading && !error && !data && (<div>No data</div>)}
-        
             </div>
 
             <div className="uppercase text-base sm:text-lg md:text-xl font-bold text-center mb-3 sm:mb-4 mt-3 sm:mt-4">
@@ -74,8 +76,10 @@ export default function PatientList() {
                     size="small" 
                     label="+ Add New Patient" 
                     variant="success" 
-                    onClick={()=> 
-                    setShowForm(true)}/>
+                    onClick={()=> {
+                        setEditId(null);
+                        setShowForm(true);
+                    }}/>
                 </div>
 
             </div>
@@ -83,7 +87,7 @@ export default function PatientList() {
             {showForm && (
                 <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/55 p-4">
                     <div className="bg-white p-4 sm:p-6 rounded-xl w-full sm:w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%] max-w-2xl max-h-[90vh] overflow-y-auto animate-scaleFade shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
-                        <h2 className="text-lg sm:text-xl font-bold mb-4 text-center">Tambah Pasien Baru</h2>
+                        <h2 className="text-lg sm:text-xl font-bold mb-4 text-center">{editId ? 'Update' : 'Add New Patient'}</h2>
                         
                         <form onSubmit={handleSubmit}>
                             <div className="mb-2">
@@ -158,17 +162,20 @@ export default function PatientList() {
                             <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 sm:justify-between"> 
                                 <Button 
                                 variant="primary" 
-                                label="Save" 
+                                label={formLoading ? "Saving..." : "Save"} 
                                 size="medium" 
-                                type="submit"/> 
+                                type="submit"
+                                disabled={formLoading}/> 
 
                                 <Button 
                                 variant="danger" 
                                 label="Close" 
                                 size="medium" 
                                 onClick={() => {
-                                resetForm() 
-                                setShowForm(false)}}/>
+                                resetForm();
+                                setEditId(null);
+                                setShowForm(false);
+                                }}/>
                             </div>
                         </form>
                     </div>
@@ -203,11 +210,15 @@ export default function PatientList() {
                                 variant="warning"
                                 onClick={() => navigate(`/patient/${patient.id}`)}>
                                 Detail </Button>
+
                                 <Button
                                 richChildren
                                 size="small"
                                 variant="primary"
-                                onClick={() => navigate(`/patient/${patient.id}`)}>
+                                onClick={() => {
+                                    setEditId(patient.id);
+                                    setShowForm(true);
+                                }}>
                                 Update </Button></div>
                             </td>
                         </tr>
