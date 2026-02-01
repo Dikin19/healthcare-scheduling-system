@@ -75,7 +75,7 @@ export default function PatientList() {
                     <Button
                         size="small"
                         label="+ Add New Patient"
-                        variant="success"
+                        variant="warning"
                         onClick={() => {
                             setEditId(null);
                             setShowForm(true);
@@ -87,6 +87,14 @@ export default function PatientList() {
                         label="📅 Calendar"
                         variant="primary"
                         onClick={() => navigate("/calendar")} />
+                </div>
+
+                <div>
+                    <Button
+                        size="small"
+                        label="⚙️ Workflow Builder"
+                        variant="danger"
+                        onClick={() => navigate("/work-flow-builder")} />
                 </div>
 
             </div>
@@ -214,14 +222,14 @@ export default function PatientList() {
                                         <Button
                                             richChildren
                                             size="small"
-                                            variant="warning"
+                                            variant="primary"
                                             onClick={() => navigate(`/patient/${patient.id}`)}>
                                             Detail </Button>
 
                                         <Button
                                             richChildren
                                             size="small"
-                                            variant="primary"
+                                            variant="success"
                                             onClick={() => {
                                                 setEditId(patient.id);
                                                 setShowForm(true);

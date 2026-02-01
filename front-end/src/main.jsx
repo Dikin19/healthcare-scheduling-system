@@ -8,7 +8,8 @@ import { ApolloProvider } from "@apollo/client/react";
 import PatientDetail from "./pages/patientDetail.jsx";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import Calendar from "./pages/calendar.jsx"
+import Calendar from "./pages/Calendar.jsx"
+import WorkFlowBuilder from "./pages/workFlowBuilder.jsx";
 
 
 const client = new ApolloClient({
@@ -28,7 +29,12 @@ const router = createBrowserRouter([
   {
     path: "/calendar",
     element: <Calendar />
+  },
+  {
+    path: "/work-flow-builder",
+    element: <WorkFlowBuilder />
   }
+
 ])
 
 

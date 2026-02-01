@@ -161,7 +161,7 @@ export default function Calendar(params) {
                             className="space-y-4"
                         >
                             <FormSelect
-                                label="Pasien"
+                                label="Pasien*"
                                 name="patientId"
                                 value={formData.patientId}
                                 onChange={handleChange}
@@ -170,6 +170,7 @@ export default function Calendar(params) {
 
                             <FormInput
                                 type="date"
+                                label="Date*"
                                 name="date"
                                 value={formData.date}
                                 onChange={handleChange}
@@ -178,6 +179,7 @@ export default function Calendar(params) {
 
                             <FormInput
                                 type="time"
+                                label="Time*"
                                 name="time"
                                 value={formData.time}
                                 onChange={handleChange}
