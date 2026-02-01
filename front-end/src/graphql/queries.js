@@ -76,3 +76,18 @@ export const GET_APPOINTMENTS = gql`
         }
     }
 `;
+
+export const CREATE_APPOINTMENT = gql`
+    mutation CreateAppointment($input: AppointmentInput!) {
+        createAppointment(input: $input) {
+            id
+            patiendId
+            patientName
+            date
+            time
+            doctor
+            status
+            type
+        }
+    }
+`;

@@ -6,6 +6,8 @@ import { allPatients, patientHistory, appointments } from "./mocks";
 
 let patientIdCounter = 11
 
+let appointementIdCounter = 19
+
 export const mockLink = new ApolloLink((operation) => {
 
     return new Observable((observer) => {
@@ -39,8 +41,8 @@ export const mockLink = new ApolloLink((operation) => {
                         } : null
                     }
                 };
-            } 
-            
+            }
+
             else if (operationName === "GetAppointments") {
                 result = {
                     data: {
@@ -62,11 +64,11 @@ export const mockLink = new ApolloLink((operation) => {
                 };
             }
 
-            else if (operationName === "UpdatePatient"){
+            else if (operationName === "UpdatePatient") {
 
-                const index = allPatients.findIndex(p => p.id ===  variables.id);
-                
-                if(index !== -1) {
+                const index = allPatients.findIndex(p => p.id === variables.id);
+
+                if (index !== -1) {
                     allPatients[index] = {
                         ...allPatients[index],
                         ...variables.input
@@ -77,13 +79,28 @@ export const mockLink = new ApolloLink((operation) => {
                         }
                     };
                 }
-                else{
+                else {
                     result = {
                         data: {
                             updatePatient: null
                         }
                     };
                 }
+            }
+
+            else if (operationName === "CreateAppointment") {
+                const patient = allPatients.find(p => p.id === variables.input.patientId);
+                const newAppointement = {
+                    id: `a${appointementIdCounter++}`,
+                    patientName: patient ? patient.name : "unknown",
+                    ...variables.input
+                };
+                appointments.push(newAppointement);
+                result = {
+                    data: {
+                        createAppointment: newAppointement
+                    }
+                };
             }
 
             else {
