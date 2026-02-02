@@ -11,30 +11,36 @@ const defaultSteps = [
 ];
 
 
-export const useWorkFlowStore = create(persist(
-    (set) => ({
+export const useWorkFlowStore = create(persist((set) => ({
 
-        steps: defaultSteps,
-        addStep: (step) => set((state) => ({
-            steps: [...state.steps, {
-                id: Date.now().toString(),
-                name: step.name,
-                description: step.description
+    steps: defaultSteps,
 
-            }]
-        })),
+    addStep: (step) => set((state) => ({
 
-        removeStep: (id) => set((state) => ({
+        steps: [...state.steps, {
 
-            steps: state.steps.filter(s => s.id !== id)
-        })),
-        updateStep: (id, updateStep) => set((state) => ({
-            steps: state.steps.map(s => s.id === id ? { ...s, ...updateStep } : s)
-        })),
-        reorderStep: (newSteps) => set({ steps: newSteps }),
-        resetSteps: () => set({ steps: defaultSteps })
+            id: Date.now().toString(),
+            name: step.name,
+            description: step.description
 
-    }),
+        }]
+    })),
+
+    removeStep: (id) => set((state) => ({
+
+        steps: state.steps.filter(s => s.id !== id)
+    })),
+
+    updateStep: (id, updateStep) => set((state) => ({
+
+        steps: state.steps.map(s => s.id === id ? { ...s, ...updateStep } : s)
+    })),
+
+    reorderStep: (newSteps) => set({ steps: newSteps }),
+
+    resetSteps: () => set({ steps: defaultSteps })
+
+}),
     {
         name: "workflow-storage"
     }

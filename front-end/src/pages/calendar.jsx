@@ -117,7 +117,7 @@ export default function Calendar(params) {
 
     return (
 
-        <div className="p-8 max-w-7xl mx-auto">
+        <div className="p-4 sm:p-6 md:p-8 max-w-7xl mx-auto">
 
             <Button
                 label="← Back"
@@ -126,27 +126,27 @@ export default function Calendar(params) {
             />
 
 
-            <div className="uppercase text-2xl font-bold text-center mb-6">
+            <div className="uppercase text-lg sm:text-xl md:text-2xl font-bold text-center mb-4 sm:mb-6">
                 Calendar - Monthly Appointment
             </div>
 
 
-            <div className="mb-6 flex justify-between items-center">
-                <div className="flex gap-4">
-                    <div className="px-4 py-2 bg-blue-100 text-blue-800 rounded-lg border-2 border-blue-300 font-semibold">
+            <div className="mb-6 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
+                <div className="flex flex-wrap gap-2 sm:gap-4 justify-center sm:justify-start w-full sm:w-auto">
+                    <div className="px-3 sm:px-4 py-2 bg-blue-100 text-blue-800 rounded-lg border-2 border-blue-300 font-semibold text-xs sm:text-sm">
                         🗓️ Terjadwal: {statusCounts.scheduled || 0}
                     </div>
-                    <div className="px-4 py-2 bg-green-100 text-green-800 rounded-lg border-2 border-green-300 font-semibold">
+                    <div className="px-3 sm:px-4 py-2 bg-green-100 text-green-800 rounded-lg border-2 border-green-300 font-semibold text-xs sm:text-sm">
                         ✅ Selesai: {statusCounts.completed || 0}
                     </div>
-                    <div className="px-4 py-2 bg-red-100 text-red-800 rounded-lg border-2 border-red-300 font-semibold">
+                    <div className="px-3 sm:px-4 py-2 bg-red-100 text-red-800 rounded-lg border-2 border-red-300 font-semibold text-xs sm:text-sm">
                         ❌ Dibatalkan: {statusCounts.cancelled || 0}
                     </div>
                 </div>
 
                 <button
                     onClick={() => setShowForm(!showForm)}
-                    className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors font-semibold"
+                    className="px-4 sm:px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors font-semibold text-sm sm:text-base w-full sm:w-auto"
                 >
                     {showForm ? "✕ Tutup Form" : "+ Buat Appointment Baru"}
                 </button>
@@ -279,11 +279,11 @@ export default function Calendar(params) {
                     });
 
                     return (
-                        <div key={date} className="bg-white border-2 border-black rounded-lg p-6 shadow-sm">
-                            <div className="mb-4 border-b-2 border-gray-300 pb-3">
-                                <h3 className="text-lg font-bold">{dayName}</h3>
-                                <p className="text-sm text-gray-600">{dateFormatted}</p>
-                                <span className="inline-block mt-2 px-3 py-1 bg-blue-600 text-white text-sm rounded-full">
+                        <div key={date} className="bg-white border-2 border-black rounded-lg p-4 sm:p-6 shadow-sm">
+                            <div className="mb-3 sm:mb-4 border-b-2 border-gray-300 pb-2 sm:pb-3">
+                                <h3 className="text-base sm:text-lg font-bold">{dayName}</h3>
+                                <p className="text-xs sm:text-sm text-gray-600">{dateFormatted}</p>
+                                <span className="inline-block mt-2 px-2 sm:px-3 py-1 bg-blue-600 text-white text-xs sm:text-sm rounded-full">
                                     {dayAppointments.length} appointment(s)
                                 </span>
                             </div>
@@ -292,18 +292,18 @@ export default function Calendar(params) {
                                 {dayAppointments.sort((a, b) => a.time.localeCompare(b.time)).map((apt) => (
                                     <div
                                         key={apt.id}
-                                        className={`border-2 rounded-lg p-4 ${getStatusColor(apt.status)} hover:shadow-md transition-shadow cursor-pointer`}
+                                        className={`border-2 rounded-lg p-3 sm:p-4 ${getStatusColor(apt.status)} hover:shadow-md transition-shadow cursor-pointer`}
                                         onClick={() => navigate(`/patient/${apt.patientId}`)}
                                     >
                                         <div className="flex justify-between items-start mb-2">
                                             <div>
-                                                <h4 className="font-bold text-lg">{apt.patientName}</h4>
-                                                <p className="text-sm">{apt.type}</p>
+                                                <h4 className="font-bold text-base sm:text-lg">{apt.patientName}</h4>
+                                                <p className="text-xs sm:text-sm">{apt.type}</p>
                                             </div>
-                                            <span className="text-xl font-bold">{apt.time}</span>
+                                            <span className="text-lg sm:text-xl font-bold">{apt.time}</span>
                                         </div>
                                         <div className="flex justify-between items-center mt-2 pt-2 border-t border-current opacity-70">
-                                            <p className="text-sm font-semibold">{apt.doctor}</p>
+                                            <p className="text-xs sm:text-sm font-semibold">{apt.doctor}</p>
                                             <span className="text-xs uppercase font-bold px-2 py-1 bg-white bg-opacity-50 rounded">
                                                 {getStatusLabel(apt.status)}
                                             </span>

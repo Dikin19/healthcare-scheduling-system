@@ -11,18 +11,36 @@ export let allPatients = [
     { id: "10", name: "Agus Susanto", email: "Agus@mail.com", phone: "081111234567", address: "Jl. Salemba No. 23, Jakarta", dateOfBirth: "1994-02-17", gender: "Laki-laki" }
 ];
 
+
 export let patientHistory = {
+    "1": [
+        { id: "h1", date: "2026-01-15", diagnosis: "Checkup", doctor: "Dr. Siti Nurhaliza", notes: "Pemeriksaan rutin, hasil baik." }
+    ],
     "2": [
         { id: "h3", date: "2025-12-15", diagnosis: "Hipertensi", doctor: "Dr. Budi Santoso", notes: "Kontrol tekanan darah rutin sudah diselesaikan. Tekanan darah 130/85, diberi obat antihipertensi. Kontrol rutin setiap bulan." },
+        { id: "h2", date: "2026-01-20", diagnosis: "Konsultasi", doctor: "Dr. Budi Santoso", notes: "Konsultasi kesehatan, tidak ada keluhan baru." }
     ],
     "3": [
-        { id: "h5", date: "2026-01-10", diagnosis: "Alergi", doctor: "Dr. Siti Nurhaliza", notes: "Penanganan alergi makanan sudah diselesaikan. Diberi antihistamin dan kortikosteroid. Hindari makanan pemicu alergi (seafood)." },
+        { id: "h5", date: "2026-01-10", diagnosis: "Alergi", doctor: "Dr. Siti Nurhaliza", notes: "Penanganan alergi makanan sudah diselesaikan. Diberi antihistamin dan kortikosteroid. Hindari makanan pemicu alergi (seafood)." }
+    ],
+    "4": [
+        { id: "h11", date: "2026-02-03", diagnosis: "Perawatan Gigi", doctor: "Dr. Rina Marlina", notes: "Perawatan gigi rutin, tidak ditemukan masalah." }
+    ],
+    "5": [
+        { id: "h12", date: "2026-02-03", diagnosis: "Checkup", doctor: "Dr. Ahmad Dahlan", notes: "Pemeriksaan kesehatan umum, hasil normal." }
     ],
     "6": [
-        { id: "h9", date: "2025-11-10", diagnosis: "Sakit Perut", doctor: "Dr. Siti Nurhaliza", notes: "Penanganan maag akut sudah diselesaikan. Diberi obat antasida dan PPI. Hindari makanan pedas dan asam, makan teratur." }
+        { id: "h9", date: "2025-11-10", diagnosis: "Sakit Perut", doctor: "Dr. Siti Nurhaliza", notes: "Penanganan maag akut sudah diselesaikan. Diberi obat antasida dan PPI. Hindari makanan pedas dan asam, makan teratur." },
+        { id: "h13", date: "2026-02-05", diagnosis: "Konsultasi", doctor: "Dr. Siti Nurhaliza", notes: "Konsultasi lanjutan, kondisi stabil." }
     ],
     "8": [
         { id: "h10", date: "2025-11-15", diagnosis: "Sakit Kepala Migrain", doctor: "Dr. Siti Nurhaliza", notes: "Penanganan migrain sudah diselesaikan. Diberi obat pereda nyeri dan anti migrain. Kurangi stress, tidur cukup, dan hindari pemicu migrain." }
+    ],
+    "9": [
+        { id: "h7", date: "2026-01-18", diagnosis: "Checkup", doctor: "Dr. Ahmad Dahlan", notes: "Pemeriksaan kesehatan, appointment dibatalkan oleh pasien." }
+    ],
+    "10": [
+        { id: "h8", date: "2026-01-22", diagnosis: "Konsultasi", doctor: "Dr. Siti Nurhaliza", notes: "Konsultasi dibatalkan, pasien tidak hadir." }
     ],
 };
 

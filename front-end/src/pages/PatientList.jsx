@@ -57,193 +57,195 @@ export default function PatientList() {
     return (
 
         <div className={tableStyles.container}>
+            <div className={tableStyles.inner}>
 
-            <div className="flex justify-center items-center text-center font-bold text-xl rounded-lg">
-                {loading && <div>Loading...</div>}
+                <div className="flex justify-center items-center text-center font-bold text-xl rounded-lg">
+                    {loading && <div>Loading...</div>}
 
-                {!loading && error && (<div>Error: {error.message}</div>)}
+                    {!loading && error && (<div>Error: {error.message}</div>)}
 
-                {!loading && !error && !data && (<div>No data</div>)}
-            </div>
-
-            <div className="uppercase text-base sm:text-lg md:text-xl font-bold text-center mb-3 sm:mb-4 mt-3 sm:mt-4">
-                Healthcare Scheduling System
-            </div>
-
-            <div className="flex flex-wrap gap-3 sm:gap-3 justify-center mb-4 sm:mb-6">
-                <div>
-                    <Button
-                        size="small"
-                        label="+ Add New Patient"
-                        variant="warning"
-                        onClick={() => {
-                            setEditId(null);
-                            setShowForm(true);
-                        }} />
-                </div>
-                <div>
-                    <Button
-                        size="small"
-                        label="📅 Calendar"
-                        variant="primary"
-                        onClick={() => navigate("/calendar")} />
+                    {!loading && !error && !data && (<div>No data</div>)}
                 </div>
 
-                <div>
-                    <Button
-                        size="small"
-                        label="⚙️ Workflow Builder"
-                        variant="danger"
-                        onClick={() => navigate("/work-flow-builder")} />
+                <div className="uppercase text-base sm:text-lg md:text-xl font-bold text-center mb-3 sm:mb-4 mt-3 sm:mt-4">
+                    Healthcare Scheduling System
                 </div>
 
-            </div>
-
-            {showForm && (
-                <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/55 p-4">
-                    <div className="bg-white p-4 sm:p-6 rounded-xl w-full sm:w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%] max-w-2xl max-h-[90vh] overflow-y-auto animate-scaleFade shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
-                        <h2 className="text-lg sm:text-xl font-bold mb-4 text-center">{editId ? 'Update' : 'Add New Patient'}</h2>
-
-                        <form onSubmit={handleSubmit}>
-                            <div className="mb-2">
-                                <FormInput
-                                    label="Nama Lengkap"
-                                    name="name"
-                                    value={formData.name}
-                                    placeholder="Masukan Nama Lengkap"
-                                    onChange={handleChange}
-                                    error={errors.name}
-                                />
-                            </div>
-
-                            <div className="mb-2">
-                                <FormInput
-                                    label="Email"
-                                    name="email"
-                                    type="email"
-                                    value={formData.email}
-                                    placeholder="Masukan Email"
-                                    onChange={handleChange}
-                                    error={errors.email}
-                                />
-                            </div>
-
-                            <div className="mb-2">
-                                <FormInput
-                                    label="Nomor Telepon"
-                                    name="phone"
-                                    value={formData.phone}
-                                    placeholder="Masukan Nomor Telepon"
-                                    onChange={handleChange}
-                                    error={errors.phone}
-                                />
-                            </div>
-
-                            <div className="mb-2">
-                                <FormInput
-                                    label="Tanggal Lahir"
-                                    name="dateOfBirth"
-                                    type="date"
-                                    value={formData.dateOfBirth}
-                                    onChange={handleChange}
-                                    error={errors.dateOfBirth}
-                                />
-                            </div>
-
-
-                            <div className="mb-2">
-                                <FormSelect
-                                    label="Jenis Kelamin"
-                                    name="gender"
-                                    value={formData.gender}
-                                    onChange={handleChange}
-                                    options={genderOption}
-                                    error={errors.gender}
-                                />
-                            </div>
-
-                            <div className="mb-3">
-                                <FormTextArea
-                                    label="Alamat"
-                                    name="address"
-                                    value={formData.address}
-                                    placeholder="Masukan Alamat Lengkap"
-                                    onChange={handleChange}
-                                    error={errors.address}
-                                    rows={3}
-                                />
-                            </div>
-
-                            <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 sm:justify-between">
-                                <Button
-                                    variant="primary"
-                                    label={formLoading ? "Saving..." : "Save"}
-                                    size="medium"
-                                    type="submit"
-                                    disabled={formLoading} />
-
-                                <Button
-                                    variant="danger"
-                                    label="Close"
-                                    size="medium"
-                                    onClick={() => {
-                                        resetForm();
-                                        setEditId(null);
-                                        setShowForm(false);
-                                    }} />
-                            </div>
-                        </form>
+                <div className="flex flex-wrap gap-3 sm:gap-3 justify-center mb-4 sm:mb-6">
+                    <div>
+                        <Button
+                            size="small"
+                            label="+ Add New Patient"
+                            variant="warning"
+                            onClick={() => {
+                                setEditId(null);
+                                setShowForm(true);
+                            }} />
                     </div>
+                    <div>
+                        <Button
+                            size="small"
+                            label="📅 Calendar"
+                            variant="primary"
+                            onClick={() => navigate("/calendar")} />
+                    </div>
+
+                    <div>
+                        <Button
+                            size="small"
+                            label="⚙️ Workflow Builder"
+                            variant="danger"
+                            onClick={() => navigate("/work-flow-builder")} />
+                    </div>
+
                 </div>
-            )}
 
-            <Search />
-            <div className="overflow-x-auto">
-                <table className={tableStyles.table}>
-                    <thead className={tableStyles.thead}>
-                        <tr>
-                            <th className={tableStyles.th}>ID</th>
-                            <th className={tableStyles.th}>NAME</th>
-                            <th className={tableStyles.th}>EMAIL</th>
-                            <th className={tableStyles.th}>PHONE</th>
-                            <th className={tableStyles.th}>ACTION</th>
-                        </tr>
-                    </thead>
+                {showForm && (
+                    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/55 p-4">
+                        <div className="bg-white p-4 sm:p-6 rounded-xl w-full sm:w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%] max-w-2xl max-h-[90vh] overflow-y-auto animate-scaleFade shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
+                            <h2 className="text-lg sm:text-xl font-bold mb-4 text-center">{editId ? 'Update' : 'Add New Patient'}</h2>
 
-                    <tbody className={tableStyles.tbody}>
-                        {patients?.map((patient) => (
-                            <tr key={patient.id} className="hover:bg-blue-50 transition-colors cursor-pointer">
-                                <td className={tableStyles.td}><div className="text-center">{patient.id}</div></td>
-                                <td className={tableStyles.td}>{patient.name}</td>
-                                <td className={tableStyles.td}>{patient.email}</td>
-                                <td className={tableStyles.td}>{patient.phone}</td>
-                                <td className={tableStyles.td}>
-                                    <div className="flex justify-center gap-1 sm:gap-2 flex-wrap">
-                                        <Button
-                                            richChildren
-                                            size="small"
-                                            variant="primary"
-                                            onClick={() => navigate(`/patient/${patient.id}`)}>
-                                            Detail </Button>
+                            <form onSubmit={handleSubmit}>
+                                <div className="mb-2">
+                                    <FormInput
+                                        label="Nama Lengkap"
+                                        name="name"
+                                        value={formData.name}
+                                        placeholder="Masukan Nama Lengkap"
+                                        onChange={handleChange}
+                                        error={errors.name}
+                                    />
+                                </div>
 
-                                        <Button
-                                            richChildren
-                                            size="small"
-                                            variant="success"
-                                            onClick={() => {
-                                                setEditId(patient.id);
-                                                setShowForm(true);
-                                            }}>
-                                            Update </Button></div>
-                                </td>
+                                <div className="mb-2">
+                                    <FormInput
+                                        label="Email"
+                                        name="email"
+                                        type="email"
+                                        value={formData.email}
+                                        placeholder="Masukan Email"
+                                        onChange={handleChange}
+                                        error={errors.email}
+                                    />
+                                </div>
+
+                                <div className="mb-2">
+                                    <FormInput
+                                        label="Nomor Telepon"
+                                        name="phone"
+                                        value={formData.phone}
+                                        placeholder="Masukan Nomor Telepon"
+                                        onChange={handleChange}
+                                        error={errors.phone}
+                                    />
+                                </div>
+
+                                <div className="mb-2">
+                                    <FormInput
+                                        label="Tanggal Lahir"
+                                        name="dateOfBirth"
+                                        type="date"
+                                        value={formData.dateOfBirth}
+                                        onChange={handleChange}
+                                        error={errors.dateOfBirth}
+                                    />
+                                </div>
+
+
+                                <div className="mb-2">
+                                    <FormSelect
+                                        label="Jenis Kelamin"
+                                        name="gender"
+                                        value={formData.gender}
+                                        onChange={handleChange}
+                                        options={genderOption}
+                                        error={errors.gender}
+                                    />
+                                </div>
+
+                                <div className="mb-3">
+                                    <FormTextArea
+                                        label="Alamat"
+                                        name="address"
+                                        value={formData.address}
+                                        placeholder="Masukan Alamat Lengkap"
+                                        onChange={handleChange}
+                                        error={errors.address}
+                                        rows={3}
+                                    />
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 sm:justify-between">
+                                    <Button
+                                        variant="primary"
+                                        label={formLoading ? "Saving..." : "Save"}
+                                        size="medium"
+                                        type="submit"
+                                        disabled={formLoading} />
+
+                                    <Button
+                                        variant="danger"
+                                        label="Close"
+                                        size="medium"
+                                        onClick={() => {
+                                            resetForm();
+                                            setEditId(null);
+                                            setShowForm(false);
+                                        }} />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                )}
+
+                <Search />
+                <div className="overflow-x-auto">
+                    <table className={tableStyles.table}>
+                        <thead className={tableStyles.thead}>
+                            <tr>
+                                <th className={`${tableStyles.th} text-xs sm:text-sm`}>ID</th>
+                                <th className={`${tableStyles.th} text-xs sm:text-sm`}>NAME</th>
+                                <th className={`${tableStyles.th} text-xs sm:text-sm`}>EMAIL</th>
+                                <th className={`${tableStyles.th} text-xs sm:text-sm`}>PHONE</th>
+                                <th className={`${tableStyles.th} text-xs sm:text-sm`}>ACTION</th>
                             </tr>
-                        ))}
+                        </thead>
 
-                    </tbody>
+                        <tbody className={tableStyles.tbody}>
+                            {patients?.map((patient) => (
+                                <tr key={patient.id} className="hover:bg-blue-50 transition-colors cursor-pointer">
+                                    <td className={`${tableStyles.td} text-xs sm:text-sm`}><div className="text-center">{patient.id}</div></td>
+                                    <td className={`${tableStyles.td} text-xs sm:text-sm`}>{patient.name}</td>
+                                    <td className={`${tableStyles.td} text-xs sm:text-sm`}>{patient.email}</td>
+                                    <td className={`${tableStyles.td} text-xs sm:text-sm`}>{patient.phone}</td>
+                                    <td className={`${tableStyles.td}`}>
+                                        <div className="flex justify-center gap-1 sm:gap-2 flex-wrap">
+                                            <Button
+                                                richChildren
+                                                size="small"
+                                                variant="primary"
+                                                onClick={() => navigate(`/patient/${patient.id}`)}>
+                                                Detail </Button>
 
-                </table>
+                                            <Button
+                                                richChildren
+                                                size="small"
+                                                variant="success"
+                                                onClick={() => {
+                                                    setEditId(patient.id);
+                                                    setShowForm(true);
+                                                }}>
+                                                Update </Button></div>
+                                    </td>
+                                </tr>
+                            ))}
+
+                        </tbody>
+
+                    </table>
+                </div>
+
             </div>
-
         </div>
 
     );
